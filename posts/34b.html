@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>一键安装脚本为CentOS 7 添加Swap交换分区 | 御驾亲征</title><meta name="keywords" content="swap,脚本,shell,centos"><meta name="author" content="御驾亲征"><meta name="copyright" content="御驾亲征"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="方法一：输入 wget https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;evrstr&#x2F;shell@latest&#x2F;swap.sh &amp;&amp; chmod +x swap.sh &amp;&amp; bash swap.sh 然后回车，根据提示设置swap。  方法二：1.新建脚本swap.sh#!&#x2F;usr&#x2F;bin&#x2F;env bashGreen&#x3D;&quot;\033[32m&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一键安装脚本为CentOS 7 添加Swap交换分区">
+<meta property="og:url" content="https://evrstr.cc/posts/34b.html">
+<meta property="og:site_name" content="御驾亲征">
+<meta property="og:description" content="方法一：输入 wget https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;evrstr&#x2F;shell@latest&#x2F;swap.sh &amp;&amp; chmod +x swap.sh &amp;&amp; bash swap.sh 然后回车，根据提示设置swap。  方法二：1.新建脚本swap.sh#!&#x2F;usr&#x2F;bin&#x2F;env bashGreen&#x3D;&quot;\033[32m&quot;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/v2-5830a7b2d2b23a1b343e187dff845084_1440w.jpg">
+<meta property="article:published_time" content="2020-11-04T03:19:20.000Z">
+<meta property="article:modified_time" content="2020-11-08T06:16:20.000Z">
+<meta property="article:author" content="御驾亲征">
+<meta property="article:tag" content="swap">
+<meta property="article:tag" content="脚本">
+<meta property="article:tag" content="shell">
+<meta property="article:tag" content="centos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/v2-5830a7b2d2b23a1b343e187dff845084_1440w.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/8_3%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91.png"><link rel="canonical" href="https://evrstr.cc/posts/34b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":45,"position":"top","messagePrev":"自上次更新以来已有","messageNext":"天，文章的内容可能已过时。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2020-11-08 14:16:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="御驾亲征" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="御驾亲征" type="application/rss+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/avatar.png" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://e-cloud.evrstr.cc/影视/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://valine.evrstr.cc/"><i class="fa-fw fas fa-comment-alt"></i><span> 评论管理</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-flask"></i><span> 实验室</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://axxcloud.evrstr.cc/"><i class="fa-fw fas fa-cloud"></i><span> Axx云盘</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://live2d-model.evrstr.cc/"><i class="fa-fw fab fa-draft2digital"></i><span> live2d</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://status.evrstr.cc/"><i class="fa-fw fas fa-info"></i><span> 监测站</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/rss2.xml"><i class="fa-fw fa-fw fa fa-rss"></i><span> 订阅</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/v2-5830a7b2d2b23a1b343e187dff845084_1440w.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">御驾亲征</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://e-cloud.evrstr.cc/影视/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://valine.evrstr.cc/"><i class="fa-fw fas fa-comment-alt"></i><span> 评论管理</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-flask"></i><span> 实验室</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://axxcloud.evrstr.cc/"><i class="fa-fw fas fa-cloud"></i><span> Axx云盘</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://live2d-model.evrstr.cc/"><i class="fa-fw fab fa-draft2digital"></i><span> live2d</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://status.evrstr.cc/"><i class="fa-fw fas fa-info"></i><span> 监测站</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/rss2.xml"><i class="fa-fw fa-fw fa fa-rss"></i><span> 订阅</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一键安装脚本为CentOS 7 添加Swap交换分区</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-04T03:19:20.000Z" title="发表于 2020-11-04 11:19:20">2020-11-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-08T06:16:20.000Z" title="更新于 2020-11-08 14:16:20">2020-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%84%9A%E6%9C%AC/">脚本</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/shell/">shell</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">581</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h1><p>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://cdn.jsdelivr.net/gh/evrstr/shell@latest/swap.sh &amp;&amp; chmod +x swap.sh &amp;&amp; bash swap.sh</span><br></pre></td></tr></table></figure>
+<p>然后回车，根据提示设置swap。<br><img src= "https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201108142326.png"></p>
+<hr>
+<h1 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h1><h2 id="1-新建脚本swap-sh"><a href="#1-新建脚本swap-sh" class="headerlink" title="1.新建脚本swap.sh"></a>1.新建脚本<code>swap.sh</code></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">Green=&quot;\033[32m&quot;</span><br><span class="line">Font=&quot;\033[0m&quot;</span><br><span class="line">Red=&quot;\033[31m&quot; </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">root权限</span></span><br><span class="line">root_need()&#123;</span><br><span class="line">    if [[ $EUID -ne 0 ]]; then</span><br><span class="line">        echo -e &quot;$&#123;Red&#125;Error:This script must be run as root!$&#123;Font&#125;&quot;</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">检测ovz</span></span><br><span class="line">ovz_no()&#123;</span><br><span class="line">    if [[ -d &quot;/proc/vz&quot; ]]; then</span><br><span class="line">        echo -e &quot;$&#123;Red&#125;Your VPS is based on OpenVZ，not supported!$&#123;Font&#125;&quot;</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add_swap()&#123;</span><br><span class="line">echo -e &quot;$&#123;Green&#125;请输入需要添加的swap，建议为内存的2倍！$&#123;Font&#125;&quot;</span><br><span class="line">read -p &quot;请输入swap数值:&quot; swapsize</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">检查是否存在swapfile</span></span><br><span class="line">grep -q &quot;swapfile&quot; /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">如果不存在将为其创建swap</span></span><br><span class="line">if [ $? -ne 0 ]; then</span><br><span class="line">	echo -e &quot;$&#123;Green&#125;swapfile未发现，正在为其创建swapfile$&#123;Font&#125;&quot;</span><br><span class="line">	fallocate -l $&#123;swapsize&#125;M /swapfile</span><br><span class="line">	chmod 600 /swapfile</span><br><span class="line">	mkswap /swapfile</span><br><span class="line">	swapon /swapfile</span><br><span class="line">	echo &#x27;/swapfile none swap defaults 0 0&#x27; &gt;&gt; /etc/fstab</span><br><span class="line">         echo -e &quot;$&#123;Green&#125;swap创建成功，并查看信息：$&#123;Font&#125;&quot;</span><br><span class="line">         cat /proc/swaps</span><br><span class="line">         cat /proc/meminfo | grep Swap</span><br><span class="line">else</span><br><span class="line">	echo -e &quot;$&#123;Red&#125;swapfile已存在，swap设置失败，请先运行脚本删除swap后重新设置！$&#123;Font&#125;&quot;</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">del_swap()&#123;</span><br><span class="line"><span class="meta">#</span><span class="bash">检查是否存在swapfile</span></span><br><span class="line">grep -q &quot;swapfile&quot; /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">如果存在就将其移除</span></span><br><span class="line">if [ $? -eq 0 ]; then</span><br><span class="line">	echo -e &quot;$&#123;Green&#125;swapfile已发现，正在将其移除...$&#123;Font&#125;&quot;</span><br><span class="line">	sed -i &#x27;/swapfile/d&#x27; /etc/fstab</span><br><span class="line">	echo &quot;3&quot; &gt; /proc/sys/vm/drop_caches</span><br><span class="line">	swapoff -a</span><br><span class="line">	rm -f /swapfile</span><br><span class="line">    echo -e &quot;$&#123;Green&#125;swap已删除！$&#123;Font&#125;&quot;</span><br><span class="line">else</span><br><span class="line">	echo -e &quot;$&#123;Red&#125;swapfile未发现，swap删除失败！$&#123;Font&#125;&quot;</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">开始菜单</span></span><br><span class="line">main()&#123;</span><br><span class="line">root_need</span><br><span class="line">ovz_no</span><br><span class="line">clear</span><br><span class="line">echo -e &quot;———————————————————————————————————————&quot;</span><br><span class="line">echo -e &quot;$&#123;Green&#125;一键添加/删除swap脚本$&#123;Font&#125;&quot;</span><br><span class="line">echo -e &quot;$&#123;Green&#125;1、添加swap$&#123;Font&#125;&quot;</span><br><span class="line">echo -e &quot;$&#123;Green&#125;2、删除swap$&#123;Font&#125;&quot;</span><br><span class="line">echo -e &quot;———————————————————————————————————————&quot;</span><br><span class="line">read -p &quot;请输入数字 [1-2]:&quot; num</span><br><span class="line">case &quot;$num&quot; in</span><br><span class="line">    1)</span><br><span class="line">    add_swap</span><br><span class="line">    ;;</span><br><span class="line">    2)</span><br><span class="line">    del_swap</span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">    clear</span><br><span class="line">    echo -e &quot;$&#123;Green&#125;请输入正确数字 [1-2]$&#123;Font&#125;&quot;</span><br><span class="line">    sleep 2s</span><br><span class="line">    main</span><br><span class="line">    ;;</span><br><span class="line">    esac</span><br><span class="line">&#125;</span><br><span class="line">main</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-输入chmod-x-swap-sh回车"><a href="#2-输入chmod-x-swap-sh回车" class="headerlink" title="2.输入chmod +x swap.sh回车"></a>2.输入<code>chmod +x swap.sh</code>回车</h2><h2 id="3-运行脚本：-swap-sh，根据提示进行操作即可"><a href="#3-运行脚本：-swap-sh，根据提示进行操作即可" class="headerlink" title="3.运行脚本：./swap.sh，根据提示进行操作即可"></a>3.运行脚本：<code>./swap.sh</code>，根据提示进行操作即可</h2><blockquote>
+<p>注意：输入分区大小时，单位为M,如需4G,直接4000即可。</p>
+</blockquote>
+<blockquote>
+<p>最后输入<code>free -m</code>检查是否添加成功。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">御驾亲征</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://evrstr.cc/posts/34b.html">https://evrstr.cc/posts/34b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://evrstr.cc" target="_blank">御驾亲征</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/swap/">swap</a><a class="post-meta__tags" href="/tags/%E8%84%9A%E6%9C%AC/">脚本</a><a class="post-meta__tags" href="/tags/shell/">shell</a><a class="post-meta__tags" href="/tags/centos/">centos</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/v2-5830a7b2d2b23a1b343e187dff845084_1440w.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693701582-wechart.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693701582-wechart.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693696743-airplay.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693696743-airplay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/a178.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/63792883_compressed_compressed_compressed.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">笔记-007-CSS元素显示模式</div></div></a></div><div class="next-post pull-right"><a href="/posts/e4f5.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/5dd8ad27b5215450.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">笔记-006-CSS基础选择器</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/avatar.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/friend_404.gif'" alt="avatar"/><div class="author-info__name">御驾亲征</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/evrstr"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/evrstr" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="tg://resolve?domain=kaer" rel="external nofollow noreferrer" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a><a class="social-icon" href="https://wpa.qq.com/msgrd?v=3&amp;uin=429427989&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="mailto:429427989@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-clock"><div id="clock"><img v-if="clockshow == &quot;false&quot;" alt="" src="/assets/weather/loading.gif" height="120px" width="100%"/><table class="clock" v-if="clockshow"><tbody><tr><td class="clockdate">{{date}}</td><td class="weatherimg"><img id="weatherimg" :src="weatherimg" alt=""/></td><td class="temperature">{{temperature}}</td><td class="humidityimg"><img id="humidityimg" :src="humidityimg" alt=""/></td><td class="humidity">{{humidity}}</td></tr><tr class="time"><td colspan="5">{{time}}</td></tr><tr><td class="usaqi" colspan="1"><span>{{ip}}</span></td><td class="city" colspan="2">{{city}}</td><td class="daylight" colspan="2">{{daylight}}</td></tr></tbody></table></div></div><script defer="defer" data-pjax="data-pjax" src="/js/card_clock.js"></script><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/be7c.html" title="PokeMMO 抓高 hp 个体值方法"><img data-lazy-src="https://files.catbox.moe/m4y7x8.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="PokeMMO 抓高 hp 个体值方法"/></a><div class="content"><a class="title" href="/posts/be7c.html" title="PokeMMO 抓高 hp 个体值方法">PokeMMO 抓高 hp 个体值方法</a><time datetime="2021-05-21T10:17:35.000Z" title="发表于 2021-05-21 18:17:35">2021-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8589.html" title="使用ffmpeg批量给视频加水印"><img data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/61399931_compressed.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="使用ffmpeg批量给视频加水印"/></a><div class="content"><a class="title" href="/posts/8589.html" title="使用ffmpeg批量给视频加水印">使用ffmpeg批量给视频加水印</a><time datetime="2021-04-03T13:12:32.000Z" title="发表于 2021-04-03 21:12:32">2021-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3ac6.html" title="python实现图片自动加水印"><img data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img@master/blog_evrstr/1615992390471-1615992390440-output.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="python实现图片自动加水印"/></a><div class="content"><a class="title" href="/posts/3ac6.html" title="python实现图片自动加水印">python实现图片自动加水印</a><time datetime="2021-03-17T14:43:24.000Z" title="发表于 2021-03-17 22:43:24">2021-03-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/dbff.html" title="打造自己的CheatEngine修改器，避免部分游戏的检测"><img data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img@master/blog_evrstr/1614057018791-1614057018779.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="打造自己的CheatEngine修改器，避免部分游戏的检测"/></a><div class="content"><a class="title" href="/posts/dbff.html" title="打造自己的CheatEngine修改器，避免部分游戏的检测">打造自己的CheatEngine修改器，避免部分游戏的检测</a><time datetime="2021-02-23T04:02:24.000Z" title="发表于 2021-02-23 12:02:24">2021-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/954b.html" title="csgo方框透视-GDI绘制"><img data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img@master/blog_evrstr/1614073815589-1613995840861-Snipaste_2021-02-22_19-55-12.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="csgo方框透视-GDI绘制"/></a><div class="content"><a class="title" href="/posts/954b.html" title="csgo方框透视-GDI绘制">csgo方框透视-GDI绘制</a><time datetime="2021-02-22T11:59:07.000Z" title="发表于 2021-02-22 19:59:07">2021-02-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(7,17,27,0.15)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 御驾亲征</div><div class="footer_custom_text"><div class="js-pjax"><span id="cnzz_stat_icon_1279781518"></span><script async src="https://s9.cnzz.com/z_stat.php?id=1279781518&online=1&show=line"></script> <script async src="https://c.cnzz.com/core.php?web_id=1279781518&show=line&online=1&t=z" charset="utf-8"></script> </div> <p> <a target="_blank" href="https://hexo.io/" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp; <a target="_blank" href="https://demo.jerryc.me/" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp; <a target="_blank" href="https://metroui.org.ua/index.html " rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp; <a target="_blank" href="https://GitHub.com/ " rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Hosted-Github-brightgreen?style=flat&logo=GitHub" title="本站线路托管于Github"></a>&nbsp; <a target="_blank" href="https://github.com/features/actions" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Deploy-Github%20Actoion-d021d6?style=flat&logo=Github Actions" title="本站项目由Gtihub Action持续部署"></a>&nbsp; <a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a> </p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script defer src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'hexo-7gxsuakifde330dd',
+      region: 'ap-shanghai'
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'hexo-7gxsuakifde330dd',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":true,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/aoba/model.json"},"display":{"position":"right","width":180,"height":360,"superSample":1.5,"hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body></html>

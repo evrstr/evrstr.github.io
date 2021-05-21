@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "shouxieti";
+    src: url("shouxieti.eot"); /* IE9 */
+    src: url("shouxieti.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    
+    url("shouxieti.woff2") format("woff2"), /* chrome、firefox */
+    url("shouxieti.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    
+    url("shouxieti.svg#shouxieti") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+

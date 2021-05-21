@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>总结js常用的dom操作（js的dom操作API） | 御驾亲征</title><meta name="keywords" content="JavaScript,DOM,API"><meta name="author" content="御驾亲征"><meta name="copyright" content="御驾亲征"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言很多同学用惯了jquery操作dom，让他们用js操作的时候，常常力不从心，本文总结了常用的js的dom操作方法，供大家翻阅！其实说起js操作dom，我很久很久之前有篇文章，jquery属性的相关js实现方法,里面囊括了很大一部分js操作dom的常用方法，但是不是很系统。不能说是API，今天来系统总结一下！ 节点查找API document.getElementById ：根据ID查找元素，大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结js常用的dom操作（js的dom操作API）">
+<meta property="og:url" content="https://evrstr.cc/posts/608.html">
+<meta property="og:site_name" content="御驾亲征">
+<meta property="og:description" content="前言很多同学用惯了jquery操作dom，让他们用js操作的时候，常常力不从心，本文总结了常用的js的dom操作方法，供大家翻阅！其实说起js操作dom，我很久很久之前有篇文章，jquery属性的相关js实现方法,里面囊括了很大一部分js操作dom的常用方法，但是不是很系统。不能说是API，今天来系统总结一下！ 节点查找API document.getElementById ：根据ID查找元素，大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201114171126.png">
+<meta property="article:published_time" content="2020-11-14T08:06:48.000Z">
+<meta property="article:modified_time" content="2020-11-14T08:06:48.000Z">
+<meta property="article:author" content="御驾亲征">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="DOM">
+<meta property="article:tag" content="API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201114171126.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/8_3%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91.png"><link rel="canonical" href="https://evrstr.cc/posts/608"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":45,"position":"top","messagePrev":"自上次更新以来已有","messageNext":"天，文章的内容可能已过时。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2020-11-14 16:06:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="御驾亲征" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="御驾亲征" type="application/rss+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/avatar.png" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://e-cloud.evrstr.cc/影视/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://valine.evrstr.cc/"><i class="fa-fw fas fa-comment-alt"></i><span> 评论管理</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-flask"></i><span> 实验室</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://axxcloud.evrstr.cc/"><i class="fa-fw fas fa-cloud"></i><span> Axx云盘</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://live2d-model.evrstr.cc/"><i class="fa-fw fab fa-draft2digital"></i><span> live2d</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://status.evrstr.cc/"><i class="fa-fw fas fa-info"></i><span> 监测站</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/rss2.xml"><i class="fa-fw fa-fw fa fa-rss"></i><span> 订阅</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201114171126.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">御驾亲征</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://e-cloud.evrstr.cc/影视/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://valine.evrstr.cc/"><i class="fa-fw fas fa-comment-alt"></i><span> 评论管理</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-flask"></i><span> 实验室</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="http://axxcloud.evrstr.cc/"><i class="fa-fw fas fa-cloud"></i><span> Axx云盘</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://live2d-model.evrstr.cc/"><i class="fa-fw fab fa-draft2digital"></i><span> live2d</span></a></li><li><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://status.evrstr.cc/"><i class="fa-fw fas fa-info"></i><span> 监测站</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/rss2.xml"><i class="fa-fw fa-fw fa fa-rss"></i><span> 订阅</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">总结js常用的dom操作（js的dom操作API）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-14T08:06:48.000Z" title="发表于 2020-11-14 16:06:48">2020-11-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-14T08:06:48.000Z" title="更新于 2020-11-14 16:06:48">2020-11-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JavaScript/">JavaScript</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很多同学用惯了jquery操作dom，让他们用js操作的时候，常常力不从心，本文总结了常用的js的dom操作方法，供大家翻阅！其实说起js操作dom，我很久很久之前有篇文章，jquery属性的相关js实现方法,里面囊括了很大一部分js操作dom的常用方法，但是不是很系统。不能说是API，今天来系统总结一下！</p>
+<h1 id="节点查找API"><a href="#节点查找API" class="headerlink" title="节点查找API"></a>节点查找API</h1><blockquote>
+<p>document.getElementById ：根据ID查找元素，大小写敏感，如果有多个结果，只返回第一个；<br>document.getElementsByClassName ：根据类名查找元素，多个类名用空格分隔，返回一个 HTMLCollection 。注意兼容性为IE9+（含）。另外，不仅仅是&gt; document，其它元素也支持 getElementsByClassName 方法；<br>document.getElementsByTagName ：根据标签查找元素， * 表示查询所有标签，返回一个 HTMLCollection 。<br>document.getElementsByName ：根据元素的name属性查找，返回一个 NodeList 。<br>document.querySelector ：返回单个Node，IE8+(含），如果匹配到多个结果，只返回第一个。<br>document.querySelectorAll ：返回一个 NodeList ，IE8+(含）。<br>document.forms ：获取当前页面所有form，返回一个 HTMLCollection ；</p>
+</blockquote>
+<h1 id="节点创建API"><a href="#节点创建API" class="headerlink" title="节点创建API"></a>节点创建API</h1><h2 id="createElement创建元素："><a href="#createElement创建元素：" class="headerlink" title="createElement创建元素："></a>createElement创建元素：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var elem &#x3D; document.createElement(&quot;div&quot;);  </span><br><span class="line">elem.id &#x3D; &#39;haorooms&#39;;  </span><br><span class="line">elem.style &#x3D; &#39;color: red&#39;;  </span><br><span class="line">elem.innerHTML &#x3D; &#39;我是新创建的haorooms测试节点&#39;;  </span><br><span class="line">document.body.appendChild(elem);  </span><br></pre></td></tr></table></figure>
+<p>通过 createElement 创建的元素并不属于 document 对象，它只是创建出来，并未添加到html文档中，要调用 appendChild 或 insertBefore 等方法将其添加到HTML文档中。</p>
+<h2 id="createTextNode创建文本节点："><a href="#createTextNode创建文本节点：" class="headerlink" title="createTextNode创建文本节点："></a>createTextNode创建文本节点：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var node &#x3D; document.createTextNode(&quot;我是文本节点&quot;);  </span><br><span class="line">document.body.appendChild(node);  </span><br></pre></td></tr></table></figure>
+
+<h2 id="cloneNode-克隆一个节点："><a href="#cloneNode-克隆一个节点：" class="headerlink" title="cloneNode 克隆一个节点："></a>cloneNode 克隆一个节点：</h2><p>node.cloneNode(true/false) ，它接收一个bool参数，用来表示是否复制子元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var from &#x3D; document.getElementById(&quot;test&quot;);  </span><br><span class="line">var clone &#x3D; from.cloneNode(true);  </span><br><span class="line">clone.id &#x3D; &quot;test2&quot;;  </span><br><span class="line">document.body.appendChild(clone);  </span><br></pre></td></tr></table></figure>
+<p>克隆节点并不会克隆事件，除非事件是用这种方式绑定的，用 addEventListener 和 node.onclick=xxx; 方式绑定的都不会复制。</p>
+<h2 id="createDocumentFragment"><a href="#createDocumentFragment" class="headerlink" title="createDocumentFragment"></a>createDocumentFragment</h2><p>本方法用来创建一个 DocumentFragment ，也就是文档碎片，它表示一种轻量级的文档，主要是用来存储临时节点，大量操作DOM时用它可以大大提升性能。</p>
+<h1 id="节点修改API"><a href="#节点修改API" class="headerlink" title="节点修改API"></a>节点修改API</h1><ol>
+<li><p>appendChild<br>语法：</p>
+<blockquote>
+<p>parent.appendChild(child);</p>
+</blockquote>
+</li>
+<li><p>insertBefore</p>
+<blockquote>
+<p>parentNode.insertBefore(newNode, refNode);  </p>
+</blockquote>
+</li>
+<li><p>insertAdjacentHTML</p>
+<blockquote>
+<p>//js谷歌浏览器，火狐浏览器，IE8+<br>el.insertAdjacentHTML(‘beforebegin’, htmlString);</p>
+</blockquote>
+</li>
+</ol>
+<p>关于insertAdjacentHTML，这个API比较好用，具体可以看：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML</a></p>
+<ol start="4">
+<li><p>Element.insertAdjacentElement()<br>用法和上面类似，</p>
+<blockquote>
+<p>targetElement.insertAdjacentElement(position, element);</p>
+</blockquote>
+</li>
+<li><p>removeChild<br>removeChild用于删除指定的子节点并返回子节点，语法：</p>
+<blockquote>
+<p>var deletedChild = parent.removeChild(node);</p>
+</blockquote>
+</li>
+</ol>
+<p>deletedChild指向被删除节点的引用，它仍然存在于内存中，可以对其进行下一步操作。另外，如果被删除的节点不是其子节点，则将会报错。一般删除节点都是这么删的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function removeNode(node)  </span><br><span class="line">&#123;  </span><br><span class="line">    if(!node) return;  </span><br><span class="line">    if(node.parentNode) node.parentNode.removeChild(node);  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>replaceChild<br>replaceChild用于将一个节点替换另一个节点，语法：<blockquote>
+<p>parent.replaceChild(newChild, oldChild);  </p>
+</blockquote>
+</li>
+</ol>
+<h1 id="节点关系API"><a href="#节点关系API" class="headerlink" title="节点关系API"></a>节点关系API</h1><h2 id="父关系API"><a href="#父关系API" class="headerlink" title="父关系API"></a>父关系API</h2><blockquote>
+<p>parentNode ：每个节点都有一个parentNode属性，它表示元素的父节点。Element的父节点可能是Element，Document或DocumentFragment；<br>parentElement ：返回元素的父元素节点，与parentNode的区别在于，其父节点必须是一个Element元素，如果不是，则返回null；</p>
+</blockquote>
+<h2 id="子关系API"><a href="#子关系API" class="headerlink" title="子关系API"></a>子关系API</h2><blockquote>
+<p>children ：返回一个实时的 HTMLCollection ，子节点都是Element，IE9以下浏览器不支持；<br>childNodes ：返回一个实时的 NodeList ，表示元素的子节点列表，注意子节点可能包含文本节点、注释节点等；<br>firstChild ：返回第一个子节点，不存在返回null，与之相对应的还有一个 firstElementChild ；<br>lastChild ：返回最后一个子节点，不存在返回null，与之相对应的还有一个 lastElementChild ；</p>
+</blockquote>
+<h2 id="兄弟关系型API"><a href="#兄弟关系型API" class="headerlink" title="兄弟关系型API"></a>兄弟关系型API</h2><blockquote>
+<p>previousSibling ：节点的前一个节点，如果不存在则返回null。注意有可能拿到的节点是文本节点或注释节点，与预期的不符，要进行处理一下。<br>nextSibling ：节点的后一个节点，如果不存在则返回null。注意有可能拿到的节点是文本节点，与预期的不符，要进行处理一下。<br>previousElementSibling ：返回前一个元素节点，前一个节点必须是Element，注意IE9以下浏览器不支持。<br>nextElementSibling ：返回后一个元素节点，后一个节点必须是Element，注意IE9以下浏览器不支持。</p>
+</blockquote>
+<h1 id="元素属性型API"><a href="#元素属性型API" class="headerlink" title="元素属性型API"></a>元素属性型API</h1><h2 id="setAttribute-给元素设置属性："><a href="#setAttribute-给元素设置属性：" class="headerlink" title="setAttribute 给元素设置属性："></a>setAttribute 给元素设置属性：</h2><blockquote>
+<p>element.setAttribute(name, value);  </p>
+</blockquote>
+<p>其中name是特性名，value是特性值。如果元素不包含该特性，则会创建该特性并赋值。</p>
+<h2 id="getAttribute"><a href="#getAttribute" class="headerlink" title="getAttribute"></a>getAttribute</h2><p>getAttribute返回指定的特性名相应的特性值，如果不存在，则返回null：</p>
+<blockquote>
+<p>var value = element.getAttribute(“id”); </p>
+</blockquote>
+<h2 id="hasAttribute"><a href="#hasAttribute" class="headerlink" title="hasAttribute"></a>hasAttribute</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var result &#x3D; element.hasAttribute(name);</span><br><span class="line">var foo &#x3D; document.getElementById(&quot;foo&quot;); </span><br><span class="line">if (foo.hasAttribute(&quot;bar&quot;)) &#123; </span><br><span class="line">    &#x2F;&#x2F; do something</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h2><p>获取html data-开头的属性，用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;user&quot; data-id&#x3D;&quot;1234567890&quot; data-user&#x3D;&quot;johndoe&quot; data-date-of-birth&gt;John Doe&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">let el &#x3D; document.querySelector(&#39;#user&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; el.id &#x3D;&#x3D; &#39;user&#39;</span><br><span class="line">&#x2F;&#x2F; el.dataset.id &#x3D;&#x3D;&#x3D; &#39;1234567890&#39;</span><br><span class="line">&#x2F;&#x2F; el.dataset.user &#x3D;&#x3D;&#x3D; &#39;johndoe&#39;</span><br><span class="line">&#x2F;&#x2F; el.dataset.dateOfBirth &#x3D;&#x3D;&#x3D; &#39;&#39;</span><br><span class="line"></span><br><span class="line">el.dataset.dateOfBirth &#x3D; &#39;1960-10-03&#39;; &#x2F;&#x2F; set the DOB.</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; &#39;someDataAttr&#39; in el.dataset &#x3D;&#x3D;&#x3D; false</span><br><span class="line">el.dataset.someDataAttr &#x3D; &#39;mydata&#39;;</span><br><span class="line">&#x2F;&#x2F; &#39;someDataAttr&#39; in el.dataset &#x3D;&#x3D;&#x3D; true</span><br></pre></td></tr></table></figure>
+
+<h1 id="CSS样式相关API"><a href="#CSS样式相关API" class="headerlink" title="CSS样式相关API"></a>CSS样式相关API</h1><h2 id="直接修改元素的样式"><a href="#直接修改元素的样式" class="headerlink" title="直接修改元素的样式"></a>直接修改元素的样式</h2><blockquote>
+<p>elem.style.color = ‘red’;<br>elem.style.setProperty(‘font-size’, ‘16px’);<br>elem.style.removeProperty(‘color’);  </p>
+</blockquote>
+<h2 id="动态添加样式规则"><a href="#动态添加样式规则" class="headerlink" title="动态添加样式规则"></a>动态添加样式规则</h2><blockquote>
+<p>var style = document.createElement(‘style’);<br>style.innerHTML = ‘body{color:red} #top:hover{background-color: red;color: white;}’;<br>document.head.appendChild(style);  </p>
+</blockquote>
+<h2 id="classList获取样式class"><a href="#classList获取样式class" class="headerlink" title="classList获取样式class"></a>classList获取样式class</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; div is an object reference to a &lt;div&gt; element with class&#x3D;&quot;foo bar&quot;</span><br><span class="line">div.classList.remove(&quot;foo&quot;);</span><br><span class="line">div.classList.add(&quot;anotherclass&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; if visible is set remove it, otherwise add it</span><br><span class="line">div.classList.toggle(&quot;visible&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; add&#x2F;remove visible, depending on test conditional, i less than 10</span><br><span class="line">div.classList.toggle(&quot;visible&quot;, i &lt; 10 );</span><br><span class="line"></span><br><span class="line">alert(div.classList.contains(&quot;foo&quot;));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; add or remove multiple classes</span><br><span class="line">div.classList.add(&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;);</span><br><span class="line">div.classList.remove(&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; add or remove multiple classes using spread syntax</span><br><span class="line">let cls &#x3D; [&quot;foo&quot;, &quot;bar&quot;];</span><br><span class="line">div.classList.add(...cls); </span><br><span class="line">div.classList.remove(...cls);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; replace class &quot;foo&quot; with class &quot;bar&quot;</span><br><span class="line">div.classList.replace(&quot;foo&quot;, &quot;bar&quot;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="window-getComputedStyle"><a href="#window-getComputedStyle" class="headerlink" title="window.getComputedStyle"></a>window.getComputedStyle</h2><p>通过 element.sytle.xxx 只能获取到内联样式，借助 window.getComputedStyle 可以获取应用到元素上的所有样式，IE8或更低版本不支持此方法。</p>
+<blockquote>
+<p>var style = window.getComputedStyle(element[, pseudoElt]);  </p>
+</blockquote>
+<h1 id="获取相关高度API"><a href="#获取相关高度API" class="headerlink" title="获取相关高度API"></a>获取相关高度API</h1><h2 id="getBoundingClientRect"><a href="#getBoundingClientRect" class="headerlink" title="getBoundingClientRect"></a>getBoundingClientRect</h2><p>getBoundingClientRect 用来返回元素的大小以及相对于浏览器可视窗口的位置，用法如下：</p>
+<blockquote>
+<p>var clientRect = element.getBoundingClientRect();  </p>
+</blockquote>
+<p>clientRect是一个 DOMRect 对象，包含width、height、left、top、right、bottom，它是相对于窗口顶部而不是文档顶部，滚动页面时它们的值是会发生变化的。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.haorooms.com/">Haorooms</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.haorooms.com/post/js_dom_api">https://www.haorooms.com/post/js_dom_api</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://evrstr.cc" target="_blank">御驾亲征</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/DOM/">DOM</a><a class="post-meta__tags" href="/tags/API/">API</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201114171126.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693701582-wechart.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693701582-wechart.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693696743-airplay.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/1605693696743-airplay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/92d7.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/63855699_compressed.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Github Actions教程：运行python代码并Push到远端仓库</div></div></a></div><div class="next-post pull-right"><a href="/posts/ec24.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201114171256.png" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">笔记-13-JavaScript初探</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/ec24.html" title="笔记-13-JavaScript初探"><img class="cover" data-lazy-src="https://cdn.jsdelivr.net/gh/evrstr/img/blog_evrstr/20201114171256.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-13</div><div class="title">笔记-13-JavaScript初探</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E6%9F%A5%E6%89%BEAPI"><span class="toc-number">2.</span> <span class="toc-text">节点查找API</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BAAPI"><span class="toc-number">3.</span> <span class="toc-text">节点创建API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#createElement%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">createElement创建元素：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#createTextNode%E5%88%9B%E5%BB%BA%E6%96%87%E6%9C%AC%E8%8A%82%E7%82%B9%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">createTextNode创建文本节点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cloneNode-%E5%85%8B%E9%9A%86%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%9A"><span class="toc-number">3.3.</span> <span class="toc-text">cloneNode 克隆一个节点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#createDocumentFragment"><span class="toc-number">3.4.</span> <span class="toc-text">createDocumentFragment</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BF%AE%E6%94%B9API"><span class="toc-number">4.</span> <span class="toc-text">节点修改API</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%85%B3%E7%B3%BBAPI"><span class="toc-number">5.</span> <span class="toc-text">节点关系API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%B6%E5%85%B3%E7%B3%BBAPI"><span class="toc-number">5.1.</span> <span class="toc-text">父关系API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%B3%E7%B3%BBAPI"><span class="toc-number">5.2.</span> <span class="toc-text">子关系API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%84%E5%BC%9F%E5%85%B3%E7%B3%BB%E5%9E%8BAPI"><span class="toc-number">5.3.</span> <span class="toc-text">兄弟关系型API</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E5%B1%9E%E6%80%A7%E5%9E%8BAPI"><span class="toc-number">6.</span> <span class="toc-text">元素属性型API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setAttribute-%E7%BB%99%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="toc-number">6.1.</span> <span class="toc-text">setAttribute 给元素设置属性：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getAttribute"><span class="toc-number">6.2.</span> <span class="toc-text">getAttribute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hasAttribute"><span class="toc-number">6.3.</span> <span class="toc-text">hasAttribute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dataset"><span class="toc-number">6.4.</span> <span class="toc-text">dataset</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E6%A0%B7%E5%BC%8F%E7%9B%B8%E5%85%B3API"><span class="toc-number">7.</span> <span class="toc-text">CSS样式相关API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E4%BF%AE%E6%94%B9%E5%85%83%E7%B4%A0%E7%9A%84%E6%A0%B7%E5%BC%8F"><span class="toc-number">7.1.</span> <span class="toc-text">直接修改元素的样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F%E8%A7%84%E5%88%99"><span class="toc-number">7.2.</span> <span class="toc-text">动态添加样式规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#classList%E8%8E%B7%E5%8F%96%E6%A0%B7%E5%BC%8Fclass"><span class="toc-number">7.3.</span> <span class="toc-text">classList获取样式class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#window-getComputedStyle"><span class="toc-number">7.4.</span> <span class="toc-text">window.getComputedStyle</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%85%B3%E9%AB%98%E5%BA%A6API"><span class="toc-number">8.</span> <span class="toc-text">获取相关高度API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#getBoundingClientRect"><span class="toc-number">8.1.</span> <span class="toc-text">getBoundingClientRect</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: rgba(7,17,27,0.15)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 御驾亲征</div><div class="footer_custom_text"><div class="js-pjax"><span id="cnzz_stat_icon_1279781518"></span><script async src="https://s9.cnzz.com/z_stat.php?id=1279781518&online=1&show=line"></script> <script async src="https://c.cnzz.com/core.php?web_id=1279781518&show=line&online=1&t=z" charset="utf-8"></script> </div> <p> <a target="_blank" href="https://hexo.io/" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp; <a target="_blank" href="https://demo.jerryc.me/" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp; <a target="_blank" href="https://metroui.org.ua/index.html " rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp; <a target="_blank" href="https://GitHub.com/ " rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Hosted-Github-brightgreen?style=flat&logo=GitHub" title="本站线路托管于Github"></a>&nbsp; <a target="_blank" href="https://github.com/features/actions" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Deploy-Github%20Actoion-d021d6?style=flat&logo=Github Actions" title="本站项目由Gtihub Action持续部署"></a>&nbsp; <a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a> </p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script defer src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'hexo-7gxsuakifde330dd',
+      region: 'ap-shanghai'
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'hexo-7gxsuakifde330dd',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":true,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/aoba/model.json"},"display":{"position":"right","width":180,"height":360,"superSample":1.5,"hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body></html>
